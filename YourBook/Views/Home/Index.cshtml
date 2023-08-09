@@ -1,0 +1,45 @@
+﻿@model IEnumerable<YourBook.Models.Book>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Bienvenido a 'YourBooks'</h1>
+    <p>Aqui podras manejar tu libreria de manera virtual</p>
+</div>
+<br />
+
+<div class="container text-center">
+    <!-- Center align the content -->
+    <p>Estas son las recomendaciones del dia.</p>
+    <div class="row justify-content-center">
+        <!-- Create a row and center the content -->
+        @{
+            var topRatedBooks = Model.OrderByDescending(book => book.Rating).Take(3);
+        }
+        @foreach (var item in topRatedBooks)
+        {
+            <div class="col-md-4">
+                <!-- Divide the space among the cards -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => item.Rating)%</h6>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<br />
+
+<div class="text-center">
+    <p> Ingrese a su cuenta aqui. 
+        <a asp-controller="Account" asp-action="LogIn">Ingresar</a>
+    </p>
+    <p> ¿No tiene cuenta? 
+        <a asp-controller="Account" asp-action="Register">Registrarse</a>
+    </p>
+</div>
+<br />
