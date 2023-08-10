@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using YourBook.Data;
+using YourBook.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,13 @@ builder.Services.AddDbContext<YourBookDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("YourBookConnection"));
 });
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<YourBookDbContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<AccountUser, IdentityRole>(options=>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+}).AddEntityFrameworkStores<YourBookDbContext>().AddDefaultTokenProviders();
 
 var app = builder.Build();
 

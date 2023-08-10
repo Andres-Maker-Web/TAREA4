@@ -14,10 +14,14 @@ namespace YourBook.Controllers
     public class ClientsController : Controller
     {
         private readonly YourBookDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public ClientsController(YourBookDbContext context, UserManager<IdentityUser> userManager)
+        public ClientsController(YourBookDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET: Clients
